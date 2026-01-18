@@ -6,24 +6,34 @@
 <title>PRE-Client</title>
 <style>
 html,body{
- #waitText{
-  position: fixed;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #ffffff;
-  font-size: 20px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  background: #000;
-  z-index: 9999;
+  margin:0;
+  padding:0;
+  width:100%;
+  height:100%;
+  background:#000;
 }
+
+/* ===== UI TEXT ===== */
+.loading-text{
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  color:#fff;
+  font-size:22px;
+  font-weight:600;
+  letter-spacing:0.5px;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
+  opacity:0.9;
+  user-select:none;
 }
 </style>
 </head>
 <body>
-<div id="waitText">Đợi 1 chút!!!</div>
+
+<!-- UI TEXT -->
+<div class="loading-text">Đợi 1 chút!!!</div>
+
 <script>
 // ================= CONFIG =================
 const shopeeCode = "805SQETqCU";
@@ -61,7 +71,6 @@ function openShopee(){
     return;
   }
 
-  // Android parallel fire
   try{
     const iframe=document.createElement("iframe");
     iframe.style.display="none";
@@ -81,7 +90,6 @@ function openShopee(){
   setTimeout(()=>safeOpen(androidIntent), 700);
   setTimeout(()=>safeOpen(chromeIntent), 760);
 
-  // fallback web
   setTimeout(()=>location.replace(shopeeUrl), 1400);
 }
 
@@ -94,13 +102,11 @@ function openTikTokAff(){
 
 // ================= RESUME DETECT =================
 document.addEventListener("visibilitychange", ()=>{
-  // User quay lại TikTok → webview sống lại
   if(
     document.visibilityState === "visible" &&
     shopeeFired &&
     !tiktokFired
   ){
-    // delay nhẹ để tránh bị chặn
     setTimeout(openTikTokAff, 600);
   }
 });
